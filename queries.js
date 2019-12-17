@@ -11,6 +11,7 @@ const pool = new Pool({
     port: 5432,
 });
 
+// get todos with SQL 
 const getTodos = (req, res) => {
     pool.query('SELECT * FROM todos ORDER BY id ASC', (error, results) => {
         if (error) {
@@ -20,9 +21,9 @@ const getTodos = (req, res) => {
     })
 }
 
+// get todos by id using a placeholder for the id
 const getTodoById = (req, res) => {
-    const id = parseInt(req.params.id)
-  
+    const id = parseInt(req.params.id)  
     pool.query('SELECT * FROM todos WHERE id = $1', [id], (error, results) => {
       if (error) {
         throw error
@@ -31,6 +32,7 @@ const getTodoById = (req, res) => {
     })
   }
 
+// create a todo with all fields required for db
 const createTodo = (req, res) => {
     const { title, description, date, complete } = req.body
   
@@ -42,6 +44,7 @@ const createTodo = (req, res) => {
     })
 }
 
+// for use later when implementing edit
 const updateTodo = (req, res) => {
     const id = parseInt(req.params.id)
     const { title, description, date, complete } = req.body
@@ -58,16 +61,17 @@ const updateTodo = (req, res) => {
     )
   }
 
-  const deleteTodo = (req, res) => {
-    const id = parseInt(req.params.id)
+// deletes a todo based on the id
+const deleteTodo = (req, res) => {
+  const id = parseInt(req.params.id)
   
-    pool.query('DELETE FROM todos WHERE id = $1', [id], (error, results) => {
-      if (error) {
-        throw error
-      }
-      res.status(200).send(`Todo deleted with ID: ${id}`)
-    })
-  }
+  pool.query('DELETE FROM todos WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.status(200).send(`Todo deleted with ID: ${id}`)
+  })
+}
 
   module.exports = {
     getTodos,
