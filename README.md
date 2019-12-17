@@ -18,20 +18,20 @@ Then, enter the PostgreSQL command line by running the following command:
 psql
 ```
 Once you're in the `psql` command line, run the following commands to create a new database, a new table within that database, and a new user with permissions to view and alter that database.
-```
-**create database** api;
+```javascript
+create database api;
 \c api;
 
-**CREATE TABLE** todos(
-    id **serial PRIMARY KEY**,
-    title **VARCHAR** (100) **NOT NULL**,
-    description **VARCHAR**(1000) **NOT NULL**,
-    date **date NOT NULL**,
-    complete **boolean DEFAULT false**
+CREATE TABLE todos(
+    id serial PRIMARY KEY,
+    title VARCHAR (100) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
+    date date NOT NULL,
+    complete boolean DEFAULT false
 );
 
-**create user** ralphie **with** encrypted **password** 'Ralphie1';
-**ALTER USER** ralphie **WITH** SUPERUSER;
+create user ralphie with encrypted password 'Ralphie1';
+ALTER USER ralphie WITH SUPERUSER;
 ```
 
 Then to start the app, enter:
